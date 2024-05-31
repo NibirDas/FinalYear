@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimize DNA Sequence</title>
+</head>
+<body>
+    <h1>Optimize DNA Sequence</h1>
+    <form id="dna-form" action="/optimize" method="post">
+        <label for="sequence">DNA Sequence:</label><br>
+        <input type="text" id="sequence" name="sequence" required><br><br>
+        <label for="species">Species:</label><br>
+        <select id="species" name="species" required>
+            {% for species in species_names %}
+                <option value="{{ species }}">{{ species }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Optimize">
+    </form>
+
+    <div id="result" style="display: none;">
+        <h2>Optimization Result</h2>
+        <p><strong>Optimized Sequence:</strong> <span id="optimized-sequence"></span></p>
+        <p><strong>Optimized CAI:</strong> <span id="optimized-cai"></span></p>
+        <p><strong>Low Range:</strong> <span id="low-range"></span></p>
+        <p><strong>High Range:</strong> <span id="high-range"></span></p>
+        <p><strong>Target CAI:</strong> <span id="target-cai"></span></p>
+    </div>
+
+    <script>
+        document.getElementById('dna-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Fetch the JSON response
+            fetch('/optimize', {
+                method: 'POST',
+                body: new FormData(document.getElementById('dna-form'))
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the HTML elements with the obtained values
+                document.getElementById('optimized-sequence').textContent = data.optimized_sequence;
+                document.getElementById('optimized-cai').textContent = data.optimized_cai;
+                document.getElementById('low-range').textContent = data.low_range;
+                document.getElementById('high-range').textContent = data.high_range;
+                document.getElementById('target-cai').textContent = data.target_cai;
+
+                // Display the result section
+                document.getElementById('result').style.display = 'block';
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
+
