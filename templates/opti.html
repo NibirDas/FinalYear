@@ -71,21 +71,20 @@
                                 </select><br><br>
                                 <input type="submit" class="button" value="Optimize">
                             </form>
-                        </div>
-                        <div id="result" style="display: none;">
-                            <h2>Optimization Result</h2>
-                            <p><strong>Optimized Sequence:</strong> <span id="optimized-sequence"></span></p>
-                            <p><strong>Optimized CAI:</strong> <span id="optimized-cai"></span></p>
-                            <p><strong>Optimized Range:</strong> <span id="optimized-range"></span></p>
-                            <!---<p><strong>Target CAI:</strong> <span id="target-cai"></span></p>-->
-                        </div>
-
-
-                        
+                        </div>                     
                     </div>
-
+                    
                 </div>
+                
             </section>
+            <div class="res" id="result" style="display: none;">
+                <br>
+                <h2>Optimization Result</h2><br>
+                <p><strong>Optimized Sequence:</strong> <span id="optimized-sequence"></span></p><br>
+                <p><strong>Optimized CAI:</strong> <span id="optimized-cai"></span></p><br>
+                <p><strong>Optimized Range:</strong> <span id="optimized-range"></span></p><br>
+                <!---<p><strong>Target CAI:</strong> <span id="target-cai"></span></p>-->
+            </div>
         </main>
         <script>
             document.getElementById('dna-form').addEventListener('submit', function(event) {

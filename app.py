@@ -221,7 +221,7 @@ def predict(env, policy_model):
 @app.route('/')
 def index():
     species_names = df['SpeciesName'].tolist()
-    return render_template('index.html', species_names=species_names)
+    return render_template('opti.html', species_names=species_names)
 
 # Flask route to handle the form submission
 @app.route('/optimize', methods=['POST'])
@@ -239,7 +239,7 @@ def optimize_dna():
     output_size = len(codon_usage)
     policy_model = PolicyNN(input_size, output_size)
     optimizer = optim.Adam(policy_model.parameters(), lr=0.001)
-    train(env, policy_model, optimizer, num_episodes=1000)
+    train(env, policy_model, optimizer, num_episodes=100)
     optimized_sequence = predict(env, policy_model)
 
 

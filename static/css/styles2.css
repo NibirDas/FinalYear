@@ -207,6 +207,22 @@ color: transparent;
               var(--second-color) 0%,
               var(--first-color) 100%);
 }
+div.res{
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 10px;
+  border-radius: 20px;
+  background: linear-gradient(95deg,
+              var(--second-color) 0%,
+              var(--first-color) 100%);
+}
+.res p{
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  
+}
 select, input{
   display: flex;
   align-items: center;
