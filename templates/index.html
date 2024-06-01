@@ -26,7 +26,7 @@
         <p><strong>Optimized Sequence:</strong> <span id="optimized-sequence"></span></p>
         <p><strong>Optimized CAI:</strong> <span id="optimized-cai"></span></p>
         <p><strong>Optimized Range:</strong> <span id="optimized-range"></span></p>
-        <p><strong>Target CAI:</strong> <span id="target-cai"></span></p>
+        <!---<p><strong>Target CAI:</strong> <span id="target-cai"></span></p>-->
     </div>
 
     <script>
@@ -44,7 +44,7 @@
                 document.getElementById('optimized-sequence').textContent = data.optimized_sequence;
                 document.getElementById('optimized-cai').textContent = parseFloat(data.optimized_cai).toFixed(2);
                 document.getElementById('optimized-range').textContent = `${parseFloat(data.low_range).toFixed(2)} to ${parseFloat(data.high_range).toFixed(2)}`;
-                document.getElementById('target-cai').textContent = parseFloat(data.target_cai).toFixed(2);
+                //document.getElementById('target-cai').textContent = parseFloat(data.target_cai).toFixed(2);
 
                 // Display the result section
                 document.getElementById('result').style.display = 'block';
