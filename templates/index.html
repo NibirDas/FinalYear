@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>Optimize DNA Sequence</title>
 </head>
 <body>
     <h1>Optimize DNA Sequence</h1>
-    <form id="dna-form" action="/optimize" method="post">
-        <label for="sequence">DNA Sequence:</label><br>
-        <input type="text" id="sequence" name="sequence" required><br><br>
-        <label for="species">Species:</label><br>
-        <select id="species" name="species" required>
-            {% for species in species_names %}
-                <option value="{{ species }}">{{ species }}</option>
-            {% endfor %}
-        </select><br><br>
-        <input type="submit" value="Optimize">
-    </form>
-
+    <div class="opti">
+        <form id="dna-form" action="/optimize" method="post">
+            <label for="sequence">DNA Sequence:</label><br>
+            <input type="text" id="sequence" name="sequence" required><br><br>
+            <label for="species">Species:</label><br>
+            <select id="species" name="species" required>
+                {% for species in species_names %}
+                    <option value="{{ species }}">{{ species }}</option>
+                {% endfor %}
+            </select><br><br>
+            <input type="submit" value="Optimize">
+        </form>
+    </div>
     <div id="result" style="display: none;">
         <h2>Optimization Result</h2>
         <p><strong>Optimized Sequence:</strong> <span id="optimized-sequence"></span></p>
         <p><strong>Optimized CAI:</strong> <span id="optimized-cai"></span></p>
-        <p><strong>Low Range:</strong> <span id="low-range"></span></p>
-        <p><strong>High Range:</strong> <span id="high-range"></span></p>
+        <p><strong>Optimized Range:</strong> <span id="optimized-range"></span></p>
         <p><strong>Target CAI:</strong> <span id="target-cai"></span></p>
     </div>
 
@@ -41,10 +42,9 @@
             .then(data => {
                 // Update the HTML elements with the obtained values
                 document.getElementById('optimized-sequence').textContent = data.optimized_sequence;
-                document.getElementById('optimized-cai').textContent = data.optimized_cai;
-                document.getElementById('low-range').textContent = data.low_range;
-                document.getElementById('high-range').textContent = data.high_range;
-                document.getElementById('target-cai').textContent = data.target_cai;
+                document.getElementById('optimized-cai').textContent = parseFloat(data.optimized_cai).toFixed(2);
+                document.getElementById('optimized-range').textContent = `${parseFloat(data.low_range).toFixed(2)} to ${parseFloat(data.high_range).toFixed(2)}`;
+                document.getElementById('target-cai').textContent = parseFloat(data.target_cai).toFixed(2);
 
                 // Display the result section
                 document.getElementById('result').style.display = 'block';
