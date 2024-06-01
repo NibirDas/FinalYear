@@ -1,57 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <title>Optimize DNA Sequence</title>
-</head>
-<body>
-    <h1>Optimize DNA Sequence</h1>
-    <div class="opti">
-        <form id="dna-form" action="/optimize" method="post">
-            <label for="sequence">DNA Sequence:</label><br>
-            <input type="text" id="sequence" name="sequence" required><br><br>
-            <label for="species">Species:</label><br>
-            <select id="species" name="species" required>
-                {% for species in species_names %}
-                    <option value="{{ species }}">{{ species }}</option>
-                {% endfor %}
-            </select><br><br>
-            <input type="submit" value="Optimize">
-        </form>
-    </div>
-    <div id="result" style="display: none;">
-        <h2>Optimization Result</h2>
-        <p><strong>Optimized Sequence:</strong> <span id="optimized-sequence"></span></p>
-        <p><strong>Optimized CAI:</strong> <span id="optimized-cai"></span></p>
-        <p><strong>Optimized Range:</strong> <span id="optimized-range"></span></p>
-        <!---<p><strong>Target CAI:</strong> <span id="target-cai"></span></p>-->
-    </div>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
-    <script>
-        document.getElementById('dna-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 
-            // Fetch the JSON response
-            fetch('/optimize', {
-                method: 'POST',
-                body: new FormData(document.getElementById('dna-form'))
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Update the HTML elements with the obtained values
-                document.getElementById('optimized-sequence').textContent = data.optimized_sequence;
-                document.getElementById('optimized-cai').textContent = parseFloat(data.optimized_cai).toFixed(2);
-                document.getElementById('optimized-range').textContent = `${parseFloat(data.low_range).toFixed(2)} to ${parseFloat(data.high_range).toFixed(2)}`;
-                //document.getElementById('target-cai').textContent = parseFloat(data.target_cai).toFixed(2);
+        <!--=============== REMIXICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-                // Display the result section
-                document.getElementById('result').style.display = 'block';
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    </script>
-</body>
-</html>
+        <title>GeneSync</title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                    GeneSync
+                </a>
+                
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav_item">
+                            <a href="index.html" class="nav__link">Home</a>
+                        </li>
+                        <li class="nav_item">
+                            <a href="opti.html" class="nav__link">Optimize</a>
+                        </li>
+                        <li class="nav_item">
+                            <a href="#" class="nav__link">Custom</a>
+                        </li>
+                        <li class="nav_item">
+                            <a href="#" class="nav__link">Info</a>
+                        </li>
+                    </ul>
 
+
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+
+                    <img src="{{ url_for('static', filename='img/ethereum-img.gif') }}" alt="nav image" class="nav__img">
+                </div>
+
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-4-line"></i>
+                </div>
+            </nav>
+        </header>
+
+        <!--==================== MAIN ====================-->
+        <main class="main">
+            <!--==================== HOME ====================-->
+            <section class="home"> 
+                <div class="home__shape-small"></div>
+                <div class="home__shape-big-1"></div>         
+                <div class="home__shape-big-2"></div>
+                <img src="{{ url_for('static', filename='img/shape-bg.png') }}" alt="" srcset="" class="home__shape-bg">
+                <div class="home__container container">
+                    <div class="home__info">
+                        <h1 class="home__title">
+                            <span>Discover</span> <br>                    
+                            Collect, and <br>
+                            Calculate <span>CODON.</span>
+                        </h1>
+                        <p class="home__description">
+                            Explore the world of DNA for many organism.
+                        </p>
+                        <a href="" class="home__button">LETS GO !!</a>
+                    </div>
+
+                    <div class="home__group">
+                        <div class="home__images">
+                            <div class="home__img-eth">
+                                <img src="{{ url_for('static', filename='img/ethereum-img.gif') }}" alt="home image" srcset="">
+                            </div>
+                            <div class="home__img-orbe">
+                                <img src="{{ url_for('static', filename='img/orbe-img.png') }}" alt="home image" srcset="">
+                            </div>
+                        </div>
+
+                        <div class="home__data">
+                            <div>
+                                <h2 class="home__data-number">13K</h2>
+                                <span class="home_data--subtitle">Organism</span>
+                            </div>
+                            <div>
+                                <h2 class="home__data-number">1K+</h2>
+                                <span class="home_data--subtitle">Episodes</span>
+                            </div>
+                            <div>
+                                <h2 class="home__data-number">1K+</h2>
+                                <span class="home_data--subtitle">Crossovers</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home__footer">
+                        <div>
+                            <span class="home__footer-title">Current Organism</span>
+                            <h3 class="home__footer-number">100</h3>
+                            <span class="home__footer-subtitle">inbuilt</span>
+                        </div>
+
+                        <div>
+                            <span class="home__footer-title">Activily running since</span>
+
+                            <div class="home__footer-time">
+                                <div class="home__footer-counter">
+                                    <h3 class="home__footer-number">06</h3>
+                                    <span class="home__footer-subtitle">hours</span>
+                                </div>
+                                <div class="home__footer-counter">
+                                    <h3 class="home__footer-number">26</h3>
+                                    <span class="home__footer-subtitle">minutes</span>
+                                </div>
+                                <div class="home__footer-counter">
+                                    <h3 class="home__footer-number">12</h3>
+                                    <span class="home__footer-subtitle">seconds</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <script src="scrollreveal.min.js"></script>
+        <script src="main.js"></script>
+    </body>
+    </html>

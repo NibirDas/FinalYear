@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles2.css') }}">
+
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+
+        <!--=============== REMIXICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <title>GeneSync</title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                    GeneSync
+                </a>
+                
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav_item">
+                            <a href="index.html" class="nav__link">Home</a>
+                        </li>
+                        <li class="nav_item">
+                            <a href="opti.html" class="nav__link">Optimize</a>
+                        </li>
+                        <li class="nav_item">
+                            <a href="#" class="nav__link">Custom</a>
+                        </li>
+                        <li class="nav_item">
+                            <a href="#" class="nav__link">Info</a>
+                        </li>
+                    </ul>
+
+
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+
+                    <img src="img/ethereum-img.gif" alt="nav image" class="nav__img">
+                </div>
+
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-4-line"></i>
+                </div>
+            </nav>
+        </header>
+
+        <!--==================== MAIN ====================-->
+        <main class="main">
+            <!--==================== HOME ====================-->
+            <section class="home"> 
+                <div class="home__container container">
+
+                    <div class="home__group">
+                        <div class="opti">
+                            <form id="dna-form" action="/optimize" method="post">
+                                <label for="sequence">DNA Sequence:</label><br>
+                                <input type="text" id="sequence" name="sequence" required><br><br>
+                                <label for="species">Species:</label><br>
+                                <select id="species" name="species" required>
+                                    {% for species in species_names %}
+                                        <option value="{{ species }}">{{ species }}</option>
+                                    {% endfor %}
+                                </select><br><br>
+                                <input type="submit" class="button" value="Optimize">
+                            </form>
+                        </div>
+                        <div id="result" style="display: none;">
+                            <h2>Optimization Result</h2>
+                            <p><strong>Optimized Sequence:</strong> <span id="optimized-sequence"></span></p>
+                            <p><strong>Optimized CAI:</strong> <span id="optimized-cai"></span></p>
+                            <p><strong>Optimized Range:</strong> <span id="optimized-range"></span></p>
+                            <!---<p><strong>Target CAI:</strong> <span id="target-cai"></span></p>-->
+                        </div>
+
+
+                        
+                    </div>
+
+                </div>
+            </section>
+        </main>
+        <script>
+            document.getElementById('dna-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Fetch the JSON response
+                fetch('/optimize', {
+                    method: 'POST',
+                    body: new FormData(document.getElementById('dna-form'))
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Update the HTML elements with the obtained values
+                    document.getElementById('optimized-sequence').textContent = data.optimized_sequence;
+                    document.getElementById('optimized-cai').textContent = parseFloat(data.optimized_cai).toFixed(2);
+                    document.getElementById('optimized-range').textContent = `${parseFloat(data.low_range).toFixed(2)} to ${parseFloat(data.high_range).toFixed(2)}`;
+                    //document.getElementById('target-cai').textContent = parseFloat(data.target_cai).toFixed(2);
+
+                    // Display the result section
+                    document.getElementById('result').style.display = 'block';
+                })
+                .catch(error => console.error('Error:', error));
+            });
+    </script>
+
+        <script src="scrollreveal.min.js"></script>
+        <script src="main.js"></script>
+    </body>
+    </html>
