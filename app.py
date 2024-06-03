@@ -176,7 +176,7 @@ class PolicyNN(nn.Module):
         return torch.softmax(x, dim=-1)
 
 # Training function
-def train(env, policy_model, optimizer, num_episodes=500):
+def train(env, policy_model, optimizer, num_episodes=1000):
     for episode in range(num_episodes):
         state = env.reset()
         total_reward = 0
@@ -239,7 +239,7 @@ def optimize_dna():
     output_size = len(codon_usage)
     policy_model = PolicyNN(input_size, output_size)
     optimizer = optim.Adam(policy_model.parameters(), lr=0.001)
-    train(env, policy_model, optimizer, num_episodes=100)
+    train(env, policy_model, optimizer, num_episodes=1000)
     optimized_sequence = predict(env, policy_model)
 
 
