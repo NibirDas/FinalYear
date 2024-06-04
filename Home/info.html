@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="stylesheet" href="styles.css">
 
         <!--=============== FAVICON ===============-->
         <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
@@ -42,7 +42,7 @@
                         <i class="ri-close-line"></i>
                     </div>
 
-                    <img src="{{ url_for('static', filename='img/ethereum-img.gif') }}" alt="nav image" class="nav__img">
+                    <img src="img/ethereum-img.gif" alt="nav image" class="nav__img">
                 </div>
 
 
@@ -59,31 +59,27 @@
                 <div class="home__shape-small"></div>
                 <div class="home__shape-big-1"></div>         
                 <div class="home__shape-big-2"></div>
-                <img src="{{ url_for('static', filename='img/shape-bg.png') }}" alt="" srcset="" class="home__shape-bg">
+                <img src="img/shape-bg.png" alt="" srcset="" class="home__shape-bg">
                 <div class="home__container container">
-                    <div class="home__info">
-                        <h1 class="home__title">
-                            <span>Discover</span> <br>                    
-                            Collect, and <br>
-                            Calculate <span>CODON.</span>
-                        </h1>
+                    <div class="home__info">                        
                         <p class="home__description">
-                            Explore the world of DNA for many organism.
+                            <br>1. Click on default to optimize the DNA for a predefined organism <br>
+                            2. Click on custom to optimize the DNA for a custom organism<br>
+                            3. The user need to upload a CSV file in case of custom<br>
+                            4. The CSV file must be in a perticular mentioned format<br>
+                            5. Enter the proper DNA sequence<br>
+                            6. The appropiate result will be given<br>
                         </p>
-                        <a href="" class="home__button">LETS GO !!</a>
                     </div>
 
                     <div class="home__group">
                         <div class="home__images">
                             <div class="home__img-eth">
-                                <img src="{{ url_for('static', filename='img/ethereum-img.gif') }}" alt="home image" srcset="">
-                            </div>
-                            <div class="home__img-orbe">
-                                <img src="{{ url_for('static', filename='img/orbe-img.png') }}" alt="home image" srcset="">
+                                <img src="img/ethereum-img.gif" alt="home image" srcset="">
                             </div>
                         </div>
 
-                        <div class="home__data">
+                        <!--<div class="home__data">
                             <div>
                                 <h2 class="home__data-number">13K</h2>
                                 <span class="home_data--subtitle">Organism</span>
@@ -96,7 +92,7 @@
                                 <h2 class="home__data-number">1K+</h2>
                                 <span class="home_data--subtitle">Crossovers</span>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="home__footer">
                         <div>
@@ -127,7 +123,7 @@
                 </div>
             </section>
         </main>
-        <script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        <script src="scrollreveal.min.js"></script>
+        <script src="main.js"></script>
     </body>
     </html>

@@ -234,11 +234,11 @@ def optimize_dna():
 
     # Validate DNA sequence
     if not is_valid_dna_sequence(sequence):
-        return render_template('index_custom.html', error="Invalid DNA sequence. Please ensure it contains only A, T, G, and C characters.")
+        return render_template('cus.html', error="Invalid DNA sequence. Please ensure it contains only A, T, G, and C characters.")
 
     # Validate CSV file
     if not is_valid_csv(codon_usage_file):
-        return render_template('index_custom.html', error="Invalid CSV file format. Please ensure the file has codons in the 1st row and frequencies in the 2nd row.")
+        return render_template('cus.html', error="Invalid CSV file format. Please ensure the file has codons in the 1st row and frequencies in the 2nd row.")
 
     # Reset the file pointer to the beginning
     codon_usage_file.seek(0)

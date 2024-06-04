@@ -14,6 +14,9 @@
         <title>GeneSync</title>
 </head>
 <body>
+    <div id="preloader">
+            <img src="{{ url_for('static', filename='img/loder.gif') }}" alt="Loading...">
+        </div>
     <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
@@ -89,6 +92,12 @@
                 {% endif %}
             </div>
         </main>
+        <script>
+            document.getElementById('optimizationForm').addEventListener('submit', function(event) {
+            // Show the preloader
+            document.getElementById('preloader').style.visibility = 'visible';
+            });
+        </script>
         <script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     

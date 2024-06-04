@@ -14,6 +14,9 @@
         <title>GeneSync</title>
     </head>
     <body>
+        <div id="preloader">
+            <img src="{{ url_for('static', filename='img/loder.gif') }}" alt="Loading...">
+        </div>
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
@@ -86,7 +89,7 @@
                 <p><strong>Target CAI:</strong> <span id="target-cai"></span></p>
             </div>
         </main>
-        <script>
+        <!--<script>
             document.getElementById('dna-form').addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent the default form submission
 
@@ -108,6 +111,39 @@
                 })
                 .catch(error => console.error('Error:', error));
             });
+    </script>-->
+    <script>
+        document.getElementById('dna-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Show the preloader
+            document.getElementById('preloader').style.display = 'flex';
+
+            // Fetch the JSON response
+            fetch('/optimize', {
+                method: 'POST',
+                body: new FormData(document.getElementById('dna-form'))
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the HTML elements with the obtained values
+                document.getElementById('optimized-sequence').textContent = data.optimized_sequence;
+                document.getElementById('optimized-cai').textContent = parseFloat(data.optimized_cai).toFixed(2);
+                document.getElementById('optimized-range').textContent = `${parseFloat(data.low_range).toFixed(2)} to ${parseFloat(data.high_range).toFixed(2)}`;
+                document.getElementById('target-cai').textContent = parseFloat(data.target_cai).toFixed(2);
+
+                // Display the result section
+                document.getElementById('result').style.display = 'block';
+
+                // Hide the preloader
+                document.getElementById('preloader').style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Hide the preloader in case of an error
+                document.getElementById('preloader').style.display = 'none';
+            });
+        });
     </script>
 
         <script src="scrollreveal.min.js"></script>
